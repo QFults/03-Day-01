@@ -11,7 +11,7 @@
 
 // localStorage.setItem('items', JSON.stringify(items))
 
-const items = JSON.parse(localStorage.getItem('items')) || []
+let items = JSON.parse(localStorage.getItem('items')) || []
 
 const renderItems = item => {
   const itemElem = document.createElement('li')
@@ -27,7 +27,11 @@ const renderItems = item => {
         data-text="${item.text}">
         ✓
         </button>
-      <button class="btn btn-danger remove">X</button>
+      <button 
+        class="btn btn-danger remove"
+        data-text="${item.text}">
+        X
+        </button>
     </div>
   `
   document.getElementById('items').append(itemElem)
@@ -73,6 +77,8 @@ document.addEventListener('click', event => {
 
 document.addEventListener('click', event => {
   if (event.target.classList.contains('remove')) {
+    items = items.filter(item => item.text !== event.target.dataset.text)
+    localStorage.setItem('items', JSON.stringify(items))
     event.target.parentNode.parentNode.remove()
   }
 })
