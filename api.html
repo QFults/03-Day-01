@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="movie"></div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+
+    axios.get('http://www.omdbapi.com/?apikey=trilogy&t=Goodfellas')
+      .then(res => {
+        let movie = res.data
+        console.log(movie)
+        document.getElementById('movie').innerHTML = `
+          <img src="${movie.Poster}" alt="${movie.Title}">
+          <h1>${movie.Title}</h1>
+          <h2>${movie.Director}</h2>
+          <h3>${movie.Genre}</h3>
+          <p>${movie.Plot}</p>
+        `
+      })
+      .catch(err => console.error(err))
+
+  </script>
+</body>
+</html>
